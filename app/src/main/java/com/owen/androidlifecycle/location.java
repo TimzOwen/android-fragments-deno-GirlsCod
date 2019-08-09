@@ -165,5 +165,19 @@ private void stopTrackingLocation() {
    return locationRequest; 
 }
                    
-                   
+                   mLocationCallback = new LocationCallback() {
+    @Override
+   public void onLocationResult(LocationResult locationResult) {
+   }
+};
+                   mFusedLocationClient.requestLocationUpdates
+       (getLocationRequest(), mLocationCallback,
+               null /* Looper */);
+                   @Override
+public void onLocationResult(LocationResult locationResult) {
+   // If tracking is turned on, reverse geocode into an address
+   if (mTrackingLocation) {
+       new FetchAddressTask(MainActivity.this, MainActivity.this)
+                            .execute(locationResult.getLastLocation());
+}
                    
