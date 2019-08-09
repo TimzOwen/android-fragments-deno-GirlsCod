@@ -107,7 +107,29 @@ try {
                    nterface OnTaskCompleted {
         void onTaskCompleted(String result);
 }
-                   
+               
+                   private OnTaskCompleted mListener;
+
+FetchAddressTask(Context applicationContext, OnTaskCompleted listener) {
+    mContext = applicationContext;
+    mListener = listener;
+}
+                   protected void onPostExecute(String address) {
+   mListener.onTaskCompleted(address);
+   super.onPostExecute(address);
+}
+                   @Override
+public void onTaskCompleted(String result) {
+   // Update the UI
+   mLocationTextView.setText(getString(R.string.address_text,
+            result, System.currentTimeMillis()));
+}
+                    // Start the reverse geocode AsyncTask
+new FetchAddressTask(MainActivity.this, 
+         MainActivity.this).execute(location);
+                   mLocationTextView.setText(getString(R.string.address_text,
+       getString(R.string.loading),
+       System.currentTimeMillis()));
                    
                    
                    
