@@ -61,3 +61,33 @@ public void onRequestPermissionsResult(int requestCode,
            super.onPostExecute(address);
        }
     }
+try {
+   addresses = geocoder.getFromLocation(
+           location.getLatitude(),
+           location.getLongitude(),
+           // In this sample, get just a single address
+           1);
+}
+                   catch (IOException ioException) {
+   // Catch network or other I/O problems
+   resultMessage = mContext
+           .getString(R.string.service_not_available);
+   Log.e(TAG, resultMessage, ioException);
+}
+                   catch (IllegalArgumentException illegalArgumentException) {
+   // Catch invalid latitude or longitude values
+   resultMessage = mContext
+           .getString(R.string.invalid_lat_long_used);
+   Log.e(TAG, resultMessage + ". " +
+           "Latitude = " + location.getLatitude() +
+           ", Longitude = " +
+           location.getLongitude(), illegalArgumentException);
+}
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
