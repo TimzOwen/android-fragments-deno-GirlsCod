@@ -131,7 +131,39 @@ new FetchAddressTask(MainActivity.this,
        getString(R.string.loading),
        System.currentTimeMillis()));
                    
-                   
+        mAndroidImageView = (ImageView) findViewById(R.id.imageview_android);
+
+mRotateAnim = (AnimatorSet) AnimatorInflater.loadAnimator
+   (this, R.animator.rotate);
+
+mRotateAnim.setTarget(mAndroidImageView);
+                     @Override
+    public void onClick(View v) {
+       if (!mTrackingLocation) {
+           startTrackingLocation();
+       } else {
+           stopTrackingLocation();
+       }
+    }
+                   /**
+* Method that stops tracking the device. It removes the location
+* updates, stops the animation and reset the UI.
+*/
+private void stopTrackingLocation() {
+    if (mTrackingLocation) {
+            mTrackingLocation = false;
+            mLocationButton.setText(R.string.start_tracking_location);
+            mLocationTextView.setText(R.string.textview_hint);
+            mRotateAnim.end();
+        }
+}
+                   private LocationRequest getLocationRequest() {
+   LocationRequest locationRequest = new LocationRequest();
+   locationRequest.setInterval(10000);
+   locationRequest.setFastestInterval(5000);
+   locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+   return locationRequest; 
+}
                    
                    
                    
